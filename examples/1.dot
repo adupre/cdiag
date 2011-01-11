@@ -1,0 +1,13 @@
+digraph G {
+  node [shape=record];
+  Customer[label="{<ICustomer> ICustomer|<IXML> IXML} | \<\<component\>\>\nCustomer"];
+  Customer -> Persitence:IPersistence [label="persitence"];
+  Customer -> Order:IOrder [label="orders"];
+  Order[label="{<IXML> IXML|<IOrder> IOrder} | \<\<component\>\>\nOrder"];
+  
+  Persitence[label="{<IPersistence> IPersistence} | \<\<component\>\>\nPersitence"];
+  
+  XML[label="{} | \<\<component\>\>\nXML"];
+  XML -> Customer:IXML [label="convertCusts"];
+  XML -> Order:IXML [label="convertOrders"];
+}	
