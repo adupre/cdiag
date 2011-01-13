@@ -3,7 +3,6 @@ import java.io._
 import scala.collection.mutable._
 
 /*
-
 ICustomer, IXML [Customer] 
 IOrder, IXML [Order] 
 
@@ -91,18 +90,22 @@ object CDiagram {
 		)
 	}
 	
+}
+
+object CDIagramFileRunner {
 	def main(args: Array[String]) {
 		val c = new CDiagram
 		val a = c.parseAll(c.multilineExpr, new StringReader("""
-		ICustomer, IXML [Customer] 
-		IOrder, IXML [Order] 
+		ICustomer, IXML [Customer]
+		IOrder, IXML [Order]
 
 		[Customer] persitence -> IPersistence [Persitence]
 		[Customer] orders -> IOrder [Order]
 		[XML] convertCusts -> IXML [Customer]
 		[XML] convertOrders -> IXML [Order]
 		"""))
-		
+
 		println(outputDot(c))
 	}
+
 }
