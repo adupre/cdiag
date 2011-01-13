@@ -1,3 +1,4 @@
+import io.Source
 import scala.util.parsing.combinator._
 import java.io._
 import scala.collection.mutable._
@@ -89,23 +90,20 @@ object CDiagram {
 			}.mkString("\n")
 		)
 	}
-	
 }
 
 object CDIagramFileRunner {
-	def main(args: Array[String]) {
-		val c = new CDiagram
-		val a = c.parseAll(c.multilineExpr, new StringReader("""
-		ICustomer, IXML [Customer]
-		IOrder, IXML [Order]
+	def main(args: Array[String]):Unit = {
+		if(args.length == 1) {
+			val in = args(0)
 
-		[Customer] persitence -> IPersistence [Persitence]
-		[Customer] orders -> IOrder [Order]
-		[XML] convertCusts -> IXML [Customer]
-		[XML] convertOrders -> IXML [Order]
-		"""))
-
-		println(outputDot(c))
+			val inStr = Source.fromFile(new File(in)).mkString 
+			val c = new CDiagram
+			c.parseAll(c.multilineExpr, new StringReader(inStr))
+			val a = CDiagram.outputDot(c)
+			println(a)
+		} else {
+			println("Usage: inFile outFile")
+		}
 	}
-
 }
